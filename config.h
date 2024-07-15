@@ -105,50 +105,95 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
-/* Terminal colors (16 first used in escape sequence) */
-static const char *colorname[] = {
-    /* This theme is based on https://github.com/scottmckendry/cyberdream.nvim
-     * but 8 bright colors are changed.
+typedef struct {
+	const char* const colors[258]; /* terminal colors */
+	unsigned int fg;               /* foreground */
+	unsigned int bg;               /* background */
+	unsigned int cs;               /* cursor */
+	unsigned int rcs;              /* reverse cursor */
+} ColorScheme;
+/*
+ * Terminal colors (16 first used in escape sequence,
+ * 2 last for custom cursor color),
+ * foreground, background, cursor, reverse cursor
+ */
+static const ColorScheme schemes[] = {
+    /* Both themes are based on https://github.com/scottmckendry/cyberdream.nvim
+     * dark and light versions respectfully but 8 bright colors are changed.
      */
 
-	/* 8 normal colors */
-    "#16181a",
-    "#ff6e5e",
-    "#5eff6c",
-    "#f1ff5e",
-    "#5ea1ff",
-    "#bd5eff",
-    "#5ef1ff",
-    "#ffffff",
+    {
+        {
+            /* 8 normal colors */
+           "#16181a",
+           "#ff6e5e",
+           "#5eff6c",
+           "#f1ff5e",
+           "#5ea1ff",
+           "#bd5eff",
+           "#5ef1ff",
+           "#ffffff",
 
-	/* 8 bright colors */
-    "#8f8f8f",
-    "#ff3019",
-    "#19ff2d",
-    "#ecff19",
-    "#1979ff",
-    "#9f19ff",
-    "#19ecff",
-    "#e6e6e6",
+            /* 8 bright colors */
+           "#8f8f8f",
+           "#ff3019",
+           "#19ff2d",
+           "#ecff19",
+           "#1979ff",
+           "#9f19ff",
+           "#19ecff",
+           "#ffffff",
 
-	[255] = 0,
+            [255] = 0,
 
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#ffffff", /* default foreground color */
-	"#16181a", /* default background color */
-	"#ffffff", /* default cursor color */
-	"#3c4048", /* default reverse cursor color */
+            "#3c4048", /* reverse cursor color */
+            "#000000", /* dummy */
+        },
+        7, 0, 7, 256
+    },
+
+    {
+        {
+            /* 8 normal colors */
+           "#ffffff",
+           "#d11500",
+           "#008b0c",
+           "#997b00",
+           "#0057d1",
+           "#a018ff",
+           "#008c99",
+           "#16181a",
+
+            /* 8 bright colors */
+            "#b3b3b3",
+            "#ff1900",
+            "#00cc11",
+            "#cca300",
+            "#006aff",
+            "#9500ff",
+            "#00bbcc",
+            "#8f8f8f",
+
+            [255] = 0,
+
+            "#acacac", /* reverse cursor color */
+            "#000000", /* dummy */
+        },
+        7, 0, 7, 256
+    },
 };
 
+static const char * const * colorname;
+int colorscheme = 0;
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 256;
-unsigned int defaultbg = 257;
-unsigned int defaultcs = 258;
-static unsigned int defaultrcs = 259;
+unsigned int defaultfg;
+unsigned int defaultbg;
+unsigned int defaultcs;
+static unsigned int defaultrcs;
 
 /*
  * Default shape of cursor
@@ -204,7 +249,7 @@ static MouseShortcut mshortcuts[] = {
 };
 
 /* Internal keyboard shortcuts. */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TERMMOD (ControlMask|ShiftMask)
 
 static Shortcut shortcuts[] = {
@@ -224,6 +269,7 @@ static Shortcut shortcuts[] = {
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 	{ TERMMOD,              XK_Return,      newterm,        {.i =  0} },
+	{ MODKEY,               XK_n,           nextscheme,     {.i = +1} },
 };
 
 /*
