@@ -107,33 +107,37 @@ unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
+    /* This theme is based on https://github.com/scottmckendry/cyberdream.nvim
+     * but 8 bright colors are changed.
+     */
+
 	/* 8 normal colors */
-    "#000000",
-    "#ff5555",
-    "#50fa7b",
-    "#f0fa8b",
-    "#bd92f8",
-    "#ff78c5",
-    "#8ae9fc",
-    "#bbbbbb",
+    "#16181a",
+    "#ff6e5e",
+    "#5eff6c",
+    "#f1ff5e",
+    "#5ea1ff",
+    "#bd5eff",
+    "#5ef1ff",
+    "#ffffff",
 
 	/* 8 bright colors */
-    "#545454",
-    "#ff5454",
-    "#50fa7b",
-    "#f0fa8b",
-    "#bd92f8",
-    "#ff78c5",
-    "#8ae9fc",
-    "#ffffff",
+    "#8f8f8f",
+    "#ff3019",
+    "#19ff2d",
+    "#ecff19",
+    "#1979ff",
+    "#9f19ff",
+    "#19ecff",
+    "#e6e6e6",
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#f8f8f2", /* default foreground colour */
-	"#1e1f28", /* default background colour */
-	"#bbbbbb",
-	"#44475a",
+	"#ffffff", /* default foreground color */
+	"#16181a", /* default background color */
+	"#ffffff", /* default cursor color */
+	"#3c4048", /* default reverse cursor color */
 };
 
 
