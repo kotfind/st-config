@@ -125,14 +125,14 @@ static const ColorScheme schemes[] = {
     {
         {
             /* 8 normal colors */
-           "#16181a",
-           "#ff6e5e",
-           "#5eff6c",
-           "#f1ff5e",
-           "#5ea1ff",
-           "#bd5eff",
-           "#5ef1ff",
-           "#ffffff",
+            "#16181a",
+            "#ff6e5e",
+            "#5eff6c",
+            "#f1ff5e",
+            "#5ea1ff",
+            "#bd5eff",
+            "#5ef1ff",
+            "#ffffff",
 
             /* 8 bright colors */
            "#8f8f8f",
@@ -155,14 +155,14 @@ static const ColorScheme schemes[] = {
     {
         {
             /* 8 normal colors */
-           "#ffffff",
-           "#d11500",
-           "#008b0c",
-           "#997b00",
-           "#0057d1",
-           "#a018ff",
-           "#008c99",
-           "#16181a",
+            "#ffffff",
+            "#d11500",
+            "#008b0c",
+            "#997b00",
+            "#0057d1",
+            "#a018ff",
+            "#008c99",
+            "#16181a",
 
             /* 8 bright colors */
             "#b3b3b3",
@@ -269,7 +269,7 @@ static Shortcut shortcuts[] = {
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 	{ TERMMOD,              XK_Return,      newterm,        {.i =  0} },
-	{ MODKEY,               XK_n,           nextscheme,     {.i = +1} },
+	{ TERMMOD,              XK_N,           nextscheme,     {.i = +1} },
 };
 
 /*
